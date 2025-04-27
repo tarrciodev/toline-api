@@ -1,0 +1,321 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Toliner {
+  id                   String                 @id @default(uuid())
+  projectsOwned        Project[]              @relation(name: "ProjectOwner")
+  projectsFreelanced   Project[]              @relation(name: "ProjectFreelancer")
+  name                 String
+  email                String                 @unique
+  subscriptions        ProjectSubscription[]
+  especialiazation     Category[]
+  isVerified           Boolean                @default(false) @map("is_verified")
+  createdAt            DateTime               @default(now()) @map("created_at")
+  portifolio           Portifolio[]
+  freelancerEvaluation FreelancerEvaluation[]
+  bankAccount          Json?                  @map("bank_account")
+  identification       Json?
+  isSuspended          Boolean                @default(false) @map("is_suspended")
+  user                 User?
+  isActive             Boolean                @default(true) @map("is_active")
+
+  @@map("toliners")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique
+  password      String?
+  username      String
+  type          String
+  createdAt     DateTime       @default(now()) @map("created_at")
+  conversations Conversation[]
+  tag           String         @unique
+  clientBio     String?
+  freelancerBio String?
+  avatarUrl     String?        @map("avatar_url")
+  balance       Balance?
+  tolinerId     String         @unique()
+  toliner       Toliner        @relation(fields: [tolinerId], references: [id], onDelete: Cascade)
+  skills        Skill[]
+  TestAttempt   TestAttempt[]
+
+  @@map("users")
+}
+
+model Project {
+  id            String                @id @default(uuid())
+  name          String
+  description   String
+  createdAt     DateTime              @default(now()) @map("created_at")
+  updatedAt     DateTime              @updatedAt @map("updated_at")
+  ownerId       String                @map("owner_id")
+  owner         Toliner               @relation(name: "ProjectOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  freelancerId  String?               @map("freelancer_id")
+  freelancer    Toliner?              @relation(name: "ProjectFreelancer", fields: [freelancerId], references: [id])
+  subscriptions ProjectSubscription[]
+  status        String
+  category      Category?             @relation(fields: [categoryId], references: [id])
+  categoryId    String?
+  subcategoryId String?
+  skills        Skill[]
+  dueDate       DateTime?             @map("due_date")
+  concludedAt   DateTime?             @map("concluded_at")
+  quotation     Quotation?
+  conversations Conversation[]
+  payment       Payment?
+  isActive      Boolean               @default(true) @map("is_active")
+
+  @@unique([name, categoryId, ownerId])
+  @@map("projects")
+}
+
+model ProjectSubscription {
+  id                   String   @id @default(uuid())
+  projectId            String
+  tolinerId            String
+  toliner              Toliner  @relation(fields: [tolinerId], references: [id], onDelete: Cascade)
+  project              Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  estimatedTime        String?  @map("estimated_time")
+  requiredInformations String?  @map("required_informations")
+  similarExperiences   String?  @map("similar_experiences")
+  proposal             String
+  quotation            Float?
+  createdAt            DateTime @default(now()) @map("created_at")
+  invitation           Json?
+
+  @@unique([projectId, tolinerId])
+  @@map("project_subscriptions")
+}
+
+model Category {
+  id            String        @id @default(uuid())
+  name          String        @unique
+  description   String?
+  skills        Skill[]
+  toliners      Toliner[]
+  subcategories Subcategory[]
+  slug          String        @unique
+  projects      Project[]
+
+  @@map("categories")
+}
+
+model Subcategory {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  slug        String
+  category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+
+  @@unique([categoryId, name])
+  @@map("subcategories")
+}
+
+model FreelancerEvaluation {
+  id          String  @id @default(uuid())
+  rate        String
+  tolinerId   String
+  toliner     Toliner @relation(fields: [tolinerId], references: [id], onDelete: Cascade)
+  evaluatorId String
+  comment     String
+
+  @@unique([tolinerId, evaluatorId])
+  @@map("freelancer_evaluations")
+}
+
+model Quotation {
+  id          String   @id @default(uuid())
+  projectId   String   @unique
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  ammount     Int
+  description String
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("quotations")
+}
+
+model Conversation {
+  id        String    @id @default(uuid())
+  members   User[]
+  messages  Message[]
+  projectId String?
+  project   Project?  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("conversations")
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  senderId       String
+  content        String
+  createdAt      DateTime     @default(now()) @map("created_at")
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversationId String
+  saw            Boolean      @default(false)
+  hasFile        Boolean      @default(false)
+  fileInfo       Json?
+
+  @@map("messages")
+}
+
+model Portifolio {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  cover       String
+  completedAt String?  @map("completed_at")
+  skills      Skill[]
+  assets      Json
+  toliner     Toliner? @relation(fields: [tolinerId], references: [id])
+  tolinerId   String?
+
+  @@unique([title, tolinerId])
+  @@map("portifolios")
+}
+
+model Payment {
+  id                 String    @id @default(uuid())
+  ammount            Float
+  createdAt          DateTime  @default(now()) @map("created_at")
+  clientInvoice      String?   @map("client_invoice")
+  systemInvoice      String?   @map("system_invoice")
+  verifiedFromSystem Boolean   @default(false) @map("verified_from_system")
+  project            Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId          String    @unique
+  completedAt        DateTime? @map("competed_at")
+
+  @@map("payments")
+}
+
+model Balance {
+  id        String   @id @default(uuid())
+  amount    Float
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+}
+
+model VerificationCode {
+  id        String   @id @default(uuid())
+  userEmail String   @unique
+  code      String
+  expires   DateTime
+  type      String
+
+  @@unique([userEmail, code])
+  @@map("verification_code")
+}
+
+model Skill {
+  id                String             @id @default(uuid())
+  name              String
+  slug              String             @unique // Added unique constraint for better URL handling
+  description       String?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  category          Category?          @relation(fields: [categoryId], references: [id])
+  categoryId        String?
+  subcategoryId     String?            @map("subcategory_id")
+  users             User[]
+  portifolios       Portifolio[]
+  projects          Project[]
+  certificationTest CertificationTest?
+
+  @@unique([subcategoryId, categoryId, name])
+  @@index([slug])
+  @@map("skills")
+}
+
+model CertificationTest {
+  id           String        @id @default(uuid())
+  title        String
+  description  String?
+  timeLimit    Int?
+  passingScore Float         @default(70.0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  skill        Skill         @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  skillId      String        @unique
+  questions    Question[]
+  attempts     TestAttempt[]
+
+  @@map("certification_tests")
+}
+
+model Question {
+  id                  String            @id @default(uuid())
+  text                String
+  score               Float             @default(1.0)
+  explanation         String?
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  certificationTest   CertificationTest @relation(fields: [certificationTestId], references: [id], onDelete: Cascade)
+  certificationTestId String
+  alternatives        Alternative[]
+  answers             Answer[]
+
+  @@index([certificationTestId])
+  @@map("questions")
+}
+
+model Alternative {
+  id         String   @id @default(uuid())
+  text       String
+  isCorrect  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId String
+  answers    Answer[]
+
+  @@index([questionId])
+  @@map("alternatives")
+}
+
+model TestAttempt {
+  id                  String            @id @default(uuid())
+  startTime           DateTime          @default(now())
+  endTime             DateTime?
+  score               Float?
+  passed              Boolean?
+  completionTime      Int?
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  certificationTest   CertificationTest @relation(fields: [certificationTestId], references: [id])
+  certificationTestId String
+  user                User              @relation(fields: [userId], references: [id])
+  userId              String
+  answers             Answer[]
+
+  @@index([userId, certificationTestId])
+  @@map("test_attempts")
+}
+
+model Answer {
+  id            String       @id @default(uuid())
+  createdAt     DateTime     @default(now())
+  testAttempt   TestAttempt  @relation(fields: [testAttemptId], references: [id], onDelete: Cascade)
+  testAttemptId String
+  question      Question     @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  questionId    String
+  alternative   Alternative? @relation(fields: [alternativeId], references: [id])
+  alternativeId String?
+
+  @@unique([testAttemptId, questionId])
+  @@map("answers")
+}

@@ -1,0 +1,52 @@
+import { prisma } from "../../config/prisma";
+import { ClientError } from "../../errors/client-errors";
+
+type UserCardProps = {
+    avatarUrl: string | null;
+    username: string;
+};
+
+export async function updateUserCardService({
+    userId,
+    data,
+}: {
+    userId: string;
+    data: UserCardProps;
+}) {
+    const userExists = await prisma.user.findUnique({
+        where: {
+            id: userId,
+        },
+        select: {
+            toliner: {
+                select: {
+                    id: true,
+                },
+            },
+        },
+    });
+
+    if (!userExists) {
+        throw new ClientError("User not found");
+    }
+
+    const updatedUser = await prisma.toliner.update({
+        where: {
+            id: userExists.toliner.id,
+        },
+        data: {
+            name: data.username,
+            user: {
+                update: {
+                    data: data.avatarUrl
+                        ? data
+                        : {
+                              username: data.username,
+                          },
+                },
+            },
+        },
+    });
+
+    return updatedUser;
+}
