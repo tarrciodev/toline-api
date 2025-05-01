@@ -12,7 +12,6 @@ import {
 } from 'fastify-type-provider-zod'
 import { env } from './env'
 import { errorHandler } from './error-handler'
-import { AIRoutes } from './routes/AI'
 import { categoriesRoutes } from './routes/categories'
 import { certificationTestRoutes } from './routes/certification-test'
 import { clientRoutes } from './routes/clients'
@@ -65,7 +64,6 @@ app.register(skillsRoutes)
 app.register(categoriesRoutes)
 app.register(certificationTestRoutes)
 app.register(notificationsRoute)
-app.register(AIRoutes)
 
 app
   .listen({ port: env.PORT, host: '0.0.0.0' })
