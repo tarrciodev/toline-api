@@ -1,13 +1,1 @@
-POST http://localhost:3333/api/search
-content-type: application/json; 
 
-{
-    "message": "O que e um freelancer?"
-}
-
-###
-
-GET http://localhost:3333/notifications/fd700f61-4acc-4338-9830-01d9e019a047
-
-###
-GET http://localhost:3333/toliner/entity/tolineblog@gmail.com
