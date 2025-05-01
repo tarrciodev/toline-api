@@ -29,6 +29,7 @@ export async function subscribeToProjectRoute(app: FastifyTypedInstance) {
         dependencies,
         data,
       })
+      console.log({ project })
       return replay.status(200).send(project)
     }
   )

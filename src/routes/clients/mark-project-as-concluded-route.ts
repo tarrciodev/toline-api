@@ -1,6 +1,6 @@
 import z from "zod";
 import { markProjectAsConcludedService } from "../../services/clients/mark-project-as-concluded-service";
-import { FastifyTypedInstance } from "../../types";
+import  type { FastifyTypedInstance } from "../../types";
 
 export async function markProjectAsConcludedRoute(app: FastifyTypedInstance) {
     app.put(

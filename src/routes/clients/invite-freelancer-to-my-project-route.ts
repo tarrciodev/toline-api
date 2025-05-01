@@ -1,6 +1,6 @@
 import z from "zod";
 import { inviteFreelancerToMyProjectService } from "../../services/clients/invite-freelancer-to-my-project-service";
-import { FastifyTypedInstance } from "../../types";
+import type { FastifyTypedInstance } from "../../types";
 
 export async function inviteFreelancerToMyProjectRoute(
     app: FastifyTypedInstance

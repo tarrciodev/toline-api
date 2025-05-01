@@ -1,4 +1,5 @@
 import { prisma } from '../../config/prisma'
+import { redis } from '../../config/redis'
 
 export async function getTolinerService(tolinerEmail: string) {
   const toliner = await prisma.toliner.findUnique({
@@ -272,6 +273,12 @@ export async function getTolinerService(tolinerEmail: string) {
     }
   })
 
+  const notifications = (await redis.get(
+    `notifications:${toliner.id}`
+  )) as string
+
+  const parsedNotifications = JSON.parse(notifications) ?? []
+
   return {
     ...rest,
     avatarUrl: user?.avatarUrl,
@@ -284,5 +291,6 @@ export async function getTolinerService(tolinerEmail: string) {
     projectsFreelanced: projectsFreelancedParsed,
     skills: user?.skills,
     showCases: toliner.portifolio,
+    notifications: parsedNotifications,
   }
 }

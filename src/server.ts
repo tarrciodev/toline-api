@@ -19,6 +19,7 @@ import { clientRoutes } from './routes/clients'
 import { converastionsRoutes } from './routes/conversations'
 import { freelancerRoutes } from './routes/freelances'
 import { messagesRoute } from './routes/messages'
+import { notificationsRoute } from './routes/notifications'
 import { projectRoutes } from './routes/projects'
 import { skillsRoutes } from './routes/skills'
 import { tolinerRoutes } from './routes/toliner'
@@ -63,6 +64,7 @@ app.register(freelancerRoutes)
 app.register(skillsRoutes)
 app.register(categoriesRoutes)
 app.register(certificationTestRoutes)
+app.register(notificationsRoute)
 app.register(AIRoutes)
 
 app

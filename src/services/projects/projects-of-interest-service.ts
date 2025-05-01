@@ -18,6 +18,13 @@ export async function getProjectsOfInterestService({
 
   if (userSkills?.skills.length === 0) {
     const projects = await prisma.project.findMany({
+      where: {
+        owner: {
+          email: {
+            not: userEmail,
+          },
+        },
+      },
       include: {
         subscriptions: true,
         skills: {

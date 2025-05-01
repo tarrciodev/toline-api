@@ -30,6 +30,7 @@ model Toliner {
   isSuspended          Boolean                @default(false) @map("is_suspended")
   user                 User?
   isActive             Boolean                @default(true) @map("is_active")
+  hasCompletedProfile  Boolean                @default(false) @map("has_completed_profile")
 
   @@map("toliners")
 }
