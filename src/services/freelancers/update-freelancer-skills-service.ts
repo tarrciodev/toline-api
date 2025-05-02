@@ -1,37 +1,37 @@
-import { prisma } from "../../config/prisma";
+import { prisma } from '../../config/prisma'
 
-export async function updateFreelancerSkillsService(
-    skills: string[],
-    freelancerId: string,
-    action: "add" | "remove"
-) {
-    const freelancerExists = await prisma.freelancer.findUnique({
-        where: {
-            id: freelancerId,
-        },
-    });
+export async function updateFreelancerSkillsService({
+  skills,
+  userId,
+  action,
+}: { skills: string[]; userId: string; action: 'add' | 'remove' }) {
+  const userExists = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  })
 
-    if (!freelancerExists) throw new Error("Nenhum Usuario foi encontrado");
-    const operation =
-        action === "add"
-            ? {
-                  connect: skills.map((skill) => ({ id: skill })),
-              }
-            : {
-                  disconnect: skills.map((skill) => ({ id: skill })),
-              };
+  if (!userExists) throw new Error('Nenhum Usuario foi encontrado')
+  const operation =
+    action === 'add'
+      ? {
+          connect: skills.map(skill => ({ id: skill })),
+        }
+      : {
+          disconnect: skills.map(skill => ({ id: skill })),
+        }
 
-    const freelancer = await prisma.freelancer.update({
-        where: {
-            id: freelancerId,
-        },
-        data: {
-            skills: operation,
-        },
-        select: {
-            id: true,
-        },
-    });
+  const user = await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      skills: operation,
+    },
+    select: {
+      id: true,
+    },
+  })
 
-    return freelancer;
+  return user
 }
