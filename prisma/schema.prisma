@@ -31,6 +31,7 @@ model Toliner {
   user                 User?
   isActive             Boolean                @default(true) @map("is_active")
   hasCompletedProfile  Boolean                @default(false) @map("has_completed_profile")
+  hasAprovedProfile    Boolean                @default(false) @map("has_approved_profile")
 
   @@map("toliners")
 }

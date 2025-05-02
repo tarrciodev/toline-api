@@ -1,4 +1,5 @@
 import z from 'zod'
+import { updateUserBioService } from '../../services/users/update-user-bio-service'
 import type { FastifyTypedInstance } from '../../types'
 
 export async function updateUserBioRoute(app: FastifyTypedInstance) {
@@ -14,13 +15,17 @@ export async function updateUserBioRoute(app: FastifyTypedInstance) {
         params: z.object({
           userId: z.string().uuid(),
         }),
+        querystring: z.object({
+          logged_as: z.enum(['freelancer', 'client']),
+        }),
       },
     },
     async (request, replay) => {
       const { bio } = request.body
+      const { logged_as } = request.query
       const userId = request.params.userId
-      // const user = await updateUserBioService(bio, userId);
-      return replay.status(200).send(userId)
+      const user = await updateUserBioService(bio, userId, logged_as)
+      return replay.status(200).send(user)
     }
   )
 }

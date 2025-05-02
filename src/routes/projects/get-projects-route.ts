@@ -13,16 +13,19 @@ export async function getProjectsRoute(app: FastifyTypedInstance) {
           slug: z.string().optional(),
           page: z.string().optional(),
           take: z.string().optional(),
+          me: z.string().uuid(),
         }),
       },
     },
     async (request, replay) => {
-      const { slug, page, take } = request.query
+      const { slug, page, take, me } = request.query
       const query = {
         slug: slug as string,
         page: Number(page),
         take: Number(take),
+        me,
       }
+
       const projects = await getProjectsService({ query })
       return replay.status(200).send(projects)
     }

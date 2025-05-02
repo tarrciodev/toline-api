@@ -1,8 +1,6 @@
-import { tasks } from '@trigger.dev/sdk/v3'
 import { argon2id, hash } from 'argon2'
 import { prisma } from '../../config/prisma'
 import { ClientError } from '../../errors/client-errors'
-import type { remindUnverifiedUser } from '../../trigger/remind-user'
 import { generateTagFromEmail } from '../../utils/generate-tag-from-email'
 import { isOutdated } from '../../utils/is-outdated'
 
@@ -78,9 +76,9 @@ export async function registerUserService(data: RegisterWithCredentialsProps) {
     },
   })
 
-  tasks.trigger<typeof remindUnverifiedUser>('remind-unverified-user', {
-    email: data.email,
-  })
+  // tasks.trigger<typeof remindUnverifiedUser>('remind-unverified-user', {
+  //   email: data.email,
+  // })
 
   const { user, ...rest } = toliner
 
