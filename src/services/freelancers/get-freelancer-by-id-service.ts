@@ -74,7 +74,7 @@ export async function getFreelancerByIdService(freelancerId: string) {
               createdAt: true,
               clientInvoice: true,
               systemInvoice: true,
-              verifiedFromSystem: true,
+              isVerified: true,
             },
           },
           quotation: {
@@ -138,7 +138,7 @@ export async function getFreelancerByIdService(freelancerId: string) {
         createdAt: project.payment?.createdAt.toLocaleDateString() as string,
         clientInvoice: project.payment?.clientInvoice as string,
         systemInvoice: project.payment?.systemInvoice as string,
-        verifiedFromSystem: project.payment?.verifiedFromSystem as boolean,
+        verifiedFromSystem: project.payment?.isVerified as boolean,
       },
       quotation: {
         id: project.quotation?.id as string,

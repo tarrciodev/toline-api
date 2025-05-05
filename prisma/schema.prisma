@@ -32,6 +32,9 @@ model Toliner {
   isActive             Boolean                @default(true) @map("is_active")
   hasCompletedProfile  Boolean                @default(false) @map("has_completed_profile")
   hasAprovedProfile    Boolean                @default(false) @map("has_approved_profile")
+  charges              Charge[]
+  balance              Balance?
+  payments             Payment[]
 
   @@map("toliners")
 }
@@ -48,7 +51,6 @@ model User {
   clientBio     String?
   freelancerBio String?
   avatarUrl     String?        @map("avatar_url")
-  balance       Balance?
   tolinerId     String         @unique()
   toliner       Toliner        @relation(fields: [tolinerId], references: [id], onDelete: Cascade)
   skills        Skill[]
@@ -190,26 +192,43 @@ model Portifolio {
 }
 
 model Payment {
-  id                 String    @id @default(uuid())
-  ammount            Float
-  createdAt          DateTime  @default(now()) @map("created_at")
-  clientInvoice      String?   @map("client_invoice")
-  systemInvoice      String?   @map("system_invoice")
-  verifiedFromSystem Boolean   @default(false) @map("verified_from_system")
-  project            Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  projectId          String    @unique
-  completedAt        DateTime? @map("competed_at")
+  id            String    @id @default(uuid())
+  ammount       Float
+  createdAt     DateTime  @default(now()) @map("created_at")
+  clientInvoice String?   @map("client_invoice")
+  systemInvoice String?   @map("system_invoice")
+  isVerified    Boolean   @default(false)
+  project       Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId     String    @unique
+  completedAt   DateTime? @map("competed_at")
+  toliner       Toliner   @relation(fields: [tolinerId], references: [id], onDelete: Cascade)
+  tolinerId     String
+  status        String    @default("pending")
 
   @@map("payments")
 }
 
+model Charge {
+  id         String   @id @default(uuid())
+  ammount    Float
+  createdAt  DateTime @default(now()) @map("created_at")
+  isVerified Boolean  @default(false)
+  invoice    String
+  updatedAt  DateTime @updatedAt
+  toliner    Toliner  @relation(fields: [tolinerId], references: [id])
+  status     String   @default("pending")
+  tolinerId  String
+
+  @@index([tolinerId])
+  @@map("charges")
+}
+
 model Balance {
   id        String   @id @default(uuid())
-  amount    Float
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @map("updated_at")
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String   @unique
+  ammount   Float
+  updatedAt DateTime @updatedAt
+  toliner   Toliner? @relation(fields: [tolinerId], references: [id])
+  tolinerId String?  @unique
 }
 
 model VerificationCode {

@@ -11,6 +11,11 @@ export async function getTolinerService(tolinerEmail: string) {
       name: true,
       email: true,
       isVerified: true,
+      balance: {
+        select: {
+          ammount: true,
+        },
+      },
       user: {
         select: {
           id: true,
@@ -73,7 +78,7 @@ export async function getTolinerService(tolinerEmail: string) {
               ammount: true,
               clientInvoice: true,
               systemInvoice: true,
-              verifiedFromSystem: true,
+              isVerified: true,
               createdAt: true,
             },
           },
@@ -211,6 +216,27 @@ export async function getTolinerService(tolinerEmail: string) {
           completedAt: true,
         },
       },
+      payments: {
+        select: {
+          id: true,
+          ammount: true,
+          createdAt: true,
+          isVerified: true,
+          status: true,
+          project: {
+            select: {
+              id: true,
+              name: true,
+              freelancer: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      },
       bankAccount: true,
       identification: true,
     },
@@ -218,8 +244,14 @@ export async function getTolinerService(tolinerEmail: string) {
   if (!toliner) {
     throw new Error('Toliner not found')
   }
-  const { user, projectsOwned, projectsFreelanced, portifolio, ...rest } =
-    toliner
+  const {
+    user,
+    projectsOwned,
+    projectsFreelanced,
+    portifolio,
+    payments,
+    ...rest
+  } = toliner
   const projects = projectsOwned?.map(project => {
     return {
       ...project,
@@ -294,5 +326,22 @@ export async function getTolinerService(tolinerEmail: string) {
     skills: user?.skills,
     showCases: toliner.portifolio,
     notifications: parsedNotifications,
+    payments: payments.map(payment => {
+      return {
+        id: payment.id,
+        ammount: payment.ammount,
+        createdAt: payment.createdAt.toLocaleDateString(),
+        isVerified: payment.isVerified,
+        status: payment.status,
+        project: {
+          id: payment.project.id,
+          name: payment.project.name,
+        },
+        freelancer: {
+          id: payment?.project?.freelancer?.id,
+          name: payment?.project?.freelancer?.name,
+        },
+      }
+    }),
   }
 }
