@@ -10,37 +10,54 @@ export async function getFreelancersRoute(app: FastifyTypedInstance) {
         tags: ['Freelancers'],
         description: 'Get freelancers',
         querystring: z.object({
-          especialization: z.string().optional(),
-          skills: z.string().nullable(),
-          search: z.string().optional(),
+          specialization: z
+            .string()
+            .optional()
+            .nullable()
+            .transform(val =>
+              val === 'undefined' || !val?.trim() ? undefined : val
+            ),
+          skills: z
+            .string()
+            .optional()
+            .nullable()
+            .transform(val =>
+              val === 'undefined' || !val?.trim() ? undefined : val
+            ),
+          search: z
+            .string()
+            .optional()
+            .nullable()
+            .transform(val =>
+              val === 'undefined' || !val?.trim() ? undefined : val
+            ),
           page: z.number().optional(),
           limit: z.number().optional(),
         }),
       },
     },
-    async (request, replay) => {
-      const { especialization, skills, search, page, limit } = request.query
+    async (request, reply) => {
+      const { specialization, skills, search, page, limit } = request.query
 
       const parsedSkills = skills
         ? skills
             .split(',')
             .map(skill => skill.trim())
-            .filter(Boolean)
+            .filter(skill => skill && skill !== 'undefined')
         : undefined
 
       const query = {
-        ...(especialization && { especialization }),
-        ...(parsedSkills && { skills: parsedSkills }),
+        ...(specialization && { specialization }),
+        ...(parsedSkills &&
+          parsedSkills.length > 0 && { skills: parsedSkills }),
         ...(search && { search }),
         page,
         limit,
       }
 
-      console.log({ query })
-
       const freelancers = await getFreelancersService({ query })
 
-      return replay.status(200).send(freelancers)
+      return reply.status(200).send(freelancers)
     }
   )
 }

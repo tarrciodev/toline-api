@@ -47,6 +47,7 @@ export async function getTolinerService(tolinerEmail: string) {
           status: true,
           dueDate: true,
           freelancerId: true,
+          concludedAt: true,
           category: {
             select: {
               id: true,
@@ -194,7 +195,7 @@ export async function getTolinerService(tolinerEmail: string) {
           },
         },
       },
-      especialiazation: {
+      specialization: {
         select: {
           id: true,
           name: true,
@@ -228,6 +229,7 @@ export async function getTolinerService(tolinerEmail: string) {
         userId: toliner.user?.id,
       },
       createdAt: project.createdAt.toLocaleDateString(),
+      concludedAt: project.concludedAt?.toLocaleDateString(),
       category: project.category?.name,
       subcategory: project?.category?.subcategories?.map(
         subcategory => subcategory.id === project.subcategoryId

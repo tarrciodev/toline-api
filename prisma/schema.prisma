@@ -20,7 +20,7 @@ model Toliner {
   name                 String
   email                String                 @unique
   subscriptions        ProjectSubscription[]
-  especialiazation     Category[]
+  specialization       Category[]
   isVerified           Boolean                @default(false) @map("is_verified")
   createdAt            DateTime               @default(now()) @map("created_at")
   portifolio           Portifolio[]
