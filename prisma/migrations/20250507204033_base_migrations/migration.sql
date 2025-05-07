@@ -2,10 +2,10 @@
 CREATE TYPE "ProjectStatus" AS ENUM ('created', 'onGoing', 'completed');
 
 -- CreateEnum
-CREATE TYPE "PaymentStatus" AS ENUM ('pending', 'paid', 'failed');
+CREATE TYPE "PaymentStatus" AS ENUM ('pending', 'resolved', 'rejected');
 
 -- CreateEnum
-CREATE TYPE "ChargeStatus" AS ENUM ('pending', 'verified', 'failed');
+CREATE TYPE "ChargeStatus" AS ENUM ('pending', 'resolved', 'rejected');
 
 -- CreateTable
 CREATE TABLE "toliners" (
