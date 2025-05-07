@@ -1,4 +1,4 @@
-import crypto from 'node:crypto'
+import crypto from 'crypto'
 import { prisma } from '../../../config/prisma'
 import { redis } from '../../../config/redis'
 import { type INotification, notify } from '../../../utils/notify'

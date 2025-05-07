@@ -47,7 +47,7 @@ import { generateTagFromEmail } from './utils/generate-tag-from-email'
 const prodPrisma = new PrismaClient({
   datasources: {
     db: {
-      url: 'postgresql://postgress_cpbh_user:w56M7QYX1OxqXwDwhQiP0quXVf7QfxTV@dpg-d0c9k33uibrs73dv5u80-a.oregon-postgres.render.com/postgress_cpbh',
+      url: 'postgresql://postgress_1dbn_user:FZ9Ysg9BIws2RcZePnQWgfNsas6tTYR3@dpg-d0dqtbfdiees73a76po0-a.oregon-postgres.render.com/postgress_1dbn',
     },
   },
 })
