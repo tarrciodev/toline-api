@@ -22,9 +22,6 @@ export const verificationEmailFunction = async ({
             subject: "Verify your Email",
             html,
         });
-
-        console.log({ data });
-
         return data;
         // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     } catch (error: any) {

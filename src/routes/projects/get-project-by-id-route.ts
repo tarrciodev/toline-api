@@ -16,7 +16,6 @@ export async function getProjectByIdRoute(app: FastifyTypedInstance) {
     },
     async (request, replay) => {
       const { projectId } = request.params
-      if (!projectId) return replay.status(200).send()
       const project = await getProjectByIdService(projectId)
       return replay.status(200).send(project)
     }

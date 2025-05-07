@@ -10,6 +10,7 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod'
+import { AdminRoutes } from './admin/routes/admin-routes'
 import { env } from './env'
 import { errorHandler } from './error-handler'
 import { categoriesRoutes } from './routes/categories'
@@ -64,6 +65,7 @@ app.register(skillsRoutes)
 app.register(categoriesRoutes)
 app.register(certificationTestRoutes)
 app.register(notificationsRoute)
+app.register(AdminRoutes)
 
 app
   .listen({ port: env.PORT, host: '0.0.0.0' })

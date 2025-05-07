@@ -31,7 +31,6 @@ export async function restePasswordEmailFunction({
             html,
         });
 
-        console.log("Email enviado com sucesso!", data);
         return data;
         // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     } catch (error: any) {

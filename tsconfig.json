@@ -11,5 +11,12 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "moduleResolution": "node16"
-    }
+    },
+    "include": ["src/**/*"],
+    "exclude": [
+        "**/node_modules/**",
+        "**/*.d.ts",
+        "**/generated/prisma/**", // Exclui todos os arquivos na pasta generated/prisma
+        "**/app/generated/prisma/**" // Exclui todos os arquivos na pasta app/generated/prisma
+    ]
 }

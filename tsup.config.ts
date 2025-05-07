@@ -1,8 +1,8 @@
-import { defineConfig } from "tsup";
+import { defineConfig } from 'tsup'
 
 export default defineConfig({
-    entry: ["./src/**/*.ts"],
-    format: "esm",
-    outDir: "dist",
-    clean: true,
-});
+  entry: ['./src/server.ts', './src/seed.ts'],
+  format: 'esm',
+  outDir: 'dist',
+  clean: true,
+})

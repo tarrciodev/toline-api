@@ -35,6 +35,7 @@ export async function createProjectRoute(app: FastifyTypedInstance) {
       }
 
       const createdProject = await createProjectService(data, ownerId)
+      console.log({ createdProject })
 
       return replay.status(200).send(createdProject)
     }

@@ -10,4 +10,8 @@ content-type: application/json;
 GET http://localhost:3333/notifications/fd700f61-4acc-4338-9830-01d9e019a047
 
 ###
-GET http://localhost:3333/toliner/entity/tolineblog@gmail.com
+GET http://localhost:3333/toliner/entity/tarcisio.devmaster@gmail.com
+
+###
+
+GET http://localhost:3333/adm/payments?status=pending

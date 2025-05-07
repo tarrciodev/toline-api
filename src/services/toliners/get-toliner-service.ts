@@ -130,7 +130,7 @@ export async function getTolinerService(tolinerEmail: string) {
         where: {
           isActive: true,
           status: {
-            not: 'Concluido',
+            not: 'completed',
           },
         },
         select: {
@@ -228,6 +228,12 @@ export async function getTolinerService(tolinerEmail: string) {
               id: true,
               name: true,
               freelancer: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+              owner: {
                 select: {
                   id: true,
                   name: true,
@@ -340,6 +346,10 @@ export async function getTolinerService(tolinerEmail: string) {
         freelancer: {
           id: payment?.project?.freelancer?.id,
           name: payment?.project?.freelancer?.name,
+        },
+        client: {
+          id: payment?.project?.owner?.id,
+          name: payment?.project?.owner?.name,
         },
       }
     }),
