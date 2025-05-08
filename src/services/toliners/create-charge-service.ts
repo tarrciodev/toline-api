@@ -34,24 +34,5 @@ export async function createChargeService({
     },
   })
 
-  await prisma.toliner.update({
-    where: {
-      id: tolinerId,
-    },
-    data: {
-      balance: tolinerExists.balance
-        ? {
-            update: {
-              ammount: charge.ammount + tolinerExists?.balance?.ammount,
-            },
-          }
-        : {
-            create: {
-              ammount: charge.ammount,
-            },
-          },
-    },
-  })
-
   return charge
 }
