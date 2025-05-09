@@ -15,7 +15,6 @@ export async function getFreelancerByIdRoute(app: FastifyTypedInstance) {
     async (request, reply) => {
       const { freelancerId } = request.params
       const freelancer = await getFreelancerByIdService({ freelancerId })
-      console.log({ freelancer, freelancerId })
       return reply.status(200).send(freelancer)
     }
   )

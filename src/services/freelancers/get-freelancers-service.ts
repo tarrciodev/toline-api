@@ -36,9 +36,10 @@ export async function getFreelancersService({ query }: IGetFreelancersProps) {
               freelancerBio: true,
             },
           },
-          projectsFreelanced: {
+          specialization: {
             select: {
-              status: true,
+              id: true,
+              name: true,
             },
           },
           createdAt: true,
@@ -56,7 +57,8 @@ export async function getFreelancersService({ query }: IGetFreelancersProps) {
         ...freelancerWithoutUser,
         avatarUrl: user?.avatarUrl,
         bio: user?.freelancerBio,
-        Skills: user?.skills.map(skill => ({
+        createdAt: freelancer.createdAt.toLocaleDateString(),
+        skills: user?.skills.map(skill => ({
           id: skill.id,
           name: skill.name,
         })),

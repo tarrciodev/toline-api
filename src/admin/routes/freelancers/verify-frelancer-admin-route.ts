@@ -28,8 +28,6 @@ export async function verifyFrelancerAdminRoute(app: FastifyTypedInstance) {
         },
       })
 
-      console.log({ freelancerVerified, freelancerId })
-
       return reply.status(200).send(freelancerVerified)
     }
   )
