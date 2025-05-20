@@ -17,7 +17,7 @@ export async function createSubcategoryRoute(app: FastifyTypedInstance) {
     },
     async (request, reply) => {
       const { skills, ...subcategory } = request.body
-      console.log(request.body)
+
       const result = await createSubcategoryService({
         subcategory,
         skills: skills ?? [],

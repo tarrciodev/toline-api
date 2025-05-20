@@ -3,7 +3,7 @@ import { updateUserCardService } from '../../services/users/update-user-card-ser
 import type { FastifyTypedInstance } from '../../types'
 
 export async function updateUserCardRoute(app: FastifyTypedInstance) {
-  app.post(
+  app.put(
     '/user/:userId/update-card',
     {
       schema: {
@@ -15,16 +15,17 @@ export async function updateUserCardRoute(app: FastifyTypedInstance) {
         body: z.object({
           avatarUrl: z.string().nullable(),
           username: z.string(),
+          jobDescription: z.string().optional(),
         }),
       },
     },
     async (request, reply) => {
       const { userId } = request.params
-      const { avatarUrl, username } = request.body
+      const { avatarUrl, username, jobDescription } = request.body
 
       const user = await updateUserCardService({
         userId,
-        data: { avatarUrl, username },
+        data: { avatarUrl, username, jobDescription },
       })
 
       return user

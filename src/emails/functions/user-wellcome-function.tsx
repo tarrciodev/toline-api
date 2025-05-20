@@ -22,7 +22,7 @@ export const userWellcomeEmail = async ({
             subject: "Bem vindo a Toline",
             html,
         });
-        console.log({ data });
+
         return data;
         // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     } catch (error: any) {

@@ -22,7 +22,7 @@ export async function verificationCodeRoute(app: FastifyTypedInstance) {
       const { userEmail } = request.params
       const { type, name } = request.body
       const code = await verificationCodeService(userEmail, type, name)
-      console.log({ code })
+
       return replay.status(200).send(code)
     }
   )

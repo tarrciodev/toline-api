@@ -11,6 +11,13 @@ export async function getTolinerService(tolinerEmail: string) {
       name: true,
       email: true,
       isVerified: true,
+      jobDescription: true,
+      specialization: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
       balance: {
         select: {
           ammount: true,
@@ -198,12 +205,6 @@ export async function getTolinerService(tolinerEmail: string) {
               freelancer: true,
             },
           },
-        },
-      },
-      specialization: {
-        select: {
-          id: true,
-          name: true,
         },
       },
       portifolio: {
