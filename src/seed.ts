@@ -1,57 +1,39 @@
 import { prisma } from './config/prisma'
-import { userWellcomeEmail } from './emails/functions/user-wellcome-function'
+import { categories } from './mock/categories'
+import { skills } from './mock/skills'
+import { subcategories } from './mock/subcategories'
+import { generateSlug } from './utils/generate-slug'
 
 async function seed() {
-  const freelancers = await prisma.toliner.findMany({
-    where: {
-      user: {
-        type: 'freelancer',
-      },
-    },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-    },
+  const parsedCategories = categories.map(category => ({
+    ...category,
+    slug: generateSlug(category.name),
+  }))
+  const createdCategories = await prisma.category.createMany({
+    data: parsedCategories,
   })
 
-  freelancers.map(async freelancer => {
-    await new Promise(resolve => setTimeout(resolve, 4000))
-    await userWellcomeEmail({
-      name: freelancer.name,
-      id: freelancer.id,
-      email: freelancer.email,
-    })
+  const parseSubcategories = subcategories.map(subcategory => ({
+    ...subcategory,
+    slug: generateSlug(subcategory.name),
+  }))
+
+  const createdSubcategories = await prisma.subcategory.createMany({
+    data: parseSubcategories,
   })
-  // const parsedCategories = categories.map(category => ({
-  //   ...category,
-  //   slug: generateSlug(category.name),
-  // }))
-  // const createdCategories = await prisma.category.createMany({
-  //   data: parsedCategories,
-  // })
 
-  // const parseSubcategories = subcategories.map(subcategory => ({
-  //   ...subcategory,
-  //   slug: generateSlug(subcategory.name),
-  // }))
+  const parsedSkills = skills.map(skill => {
+    return {
+      ...skill,
+      slug: generateSlug(skill.name),
+    }
+  })
 
-  // const createdSubcategories = await prisma.subcategory.createMany({
-  //   data: parseSubcategories,
-  // })
+  const createdSkills = await prisma.skill.createMany({
+    data: parsedSkills,
+  })
 
-  // const parsedSkills = skills.map(skill => {
-  //   return {
-  //     ...skill,
-  //     slug: generateSlug(skill.name),
-  //   }
-  // })
-
-  // const createdSkills = await prisma.skill.createMany({
-  //   data: parsedSkills,
-  // })
-
-  // console.log({ createdSkills, createdCategories, createdSubcategories })
+  console.log({ createdSkills, createdCategories, createdSubcategories })
 
   // await redis.del('notifications:fd700f61-4acc-4338-9830-01d9e019a047')
 }

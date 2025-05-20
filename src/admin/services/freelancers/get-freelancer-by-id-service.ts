@@ -13,7 +13,8 @@ export async function getFreelancerByIdService({
       isVerified: true,
       user: {
         select: {
-          clientBio: true,
+          freelancerBio: true,
+          avatarUrl: true,
           skills: {
             select: {
               id: true,
@@ -35,7 +36,8 @@ export async function getFreelancerByIdService({
 
   return {
     ...rest,
-    bio: user?.clientBio,
+    bio: user?.freelancerBio as string,
+    avatarUrl: user?.avatarUrl as string,
     skills: user?.skills,
     categories: specialization?.map(category => ({
       id: category.id,
