@@ -37,6 +37,14 @@ export async function createProjectService(
       },
       select: {
         id: true,
+        name: true,
+        owner: {
+          select: {
+            email: true,
+            id: true,
+            name: true,
+          },
+        },
       },
     })
 
@@ -52,6 +60,14 @@ export async function createProjectService(
     },
     select: {
       id: true,
+      name: true,
+      owner: {
+        select: {
+          email: true,
+          id: true,
+          name: true,
+        },
+      },
     },
   })
 

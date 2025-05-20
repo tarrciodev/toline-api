@@ -23,6 +23,8 @@ export async function getProjectsService({ query }: IGetProjectProps) {
         ownerId: {
           not: query.me,
         },
+        isAproved: true,
+        isActive: true,
       },
       select: {
         id: true,

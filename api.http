@@ -18,4 +18,4 @@ GET http://localhost:3333/adm/payments?status=pending
 
 ###
 
-GET http://localhost:3333/freelancers
+GET http://localhost:3333/adm/clients

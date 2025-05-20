@@ -1,4 +1,5 @@
 import z from 'zod'
+import { ProjectVerificationEmail } from '../../emails/functions/project-verification-function'
 import { createProjectService } from '../../services/projects/create-project-service'
 import type { FastifyTypedInstance } from '../../types'
 
@@ -35,6 +36,13 @@ export async function createProjectRoute(app: FastifyTypedInstance) {
       }
 
       const createdProject = await createProjectService(data, ownerId)
+      await ProjectVerificationEmail({
+        user: createdProject.owner,
+        project: {
+          id: createdProject.id,
+          name: createdProject.name,
+        },
+      })
 
       return replay.status(200).send(createdProject)
     }

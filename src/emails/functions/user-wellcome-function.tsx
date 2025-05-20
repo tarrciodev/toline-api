@@ -1,27 +1,28 @@
 import { renderToString } from "react-dom/server";
 import { resend } from "../../config/resend";
-import { EmailVerification } from "../templates/email-verification"; // Corrected path
+import { UserWellcomeEmailTemplate } from "../templates/user-wellcome"; // Corrected path
 
 interface EmailVerificationProps {
-    name: string; // Made optional
-    code: string;
-    email: string; // Made optional
+    name: string;
+    id: string;
+    email: string;
 }
-export const verificationEmailFunction = async ({
+export const userWellcomeEmail = async ({
     name,
-    code,
+    id,
     email,
 }: EmailVerificationProps) => {
     try {
         const html = renderToString(
-            <EmailVerification name={name} code={code} />
+            <UserWellcomeEmailTemplate name={name} id={id} />
         );
         const data = await resend.emails.send({
             from: "Toline <support@toline-angola.com>",
             to: [`${email}`],
-            subject: "Bem vindo a Tooline",
+            subject: "Bem vindo a Toline",
             html,
         });
+        console.log({ data });
         return data;
         // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     } catch (error: any) {

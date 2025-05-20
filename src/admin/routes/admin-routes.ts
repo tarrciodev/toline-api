@@ -1,4 +1,5 @@
 import type { FastifyTypedInstance } from '../../types'
+import { clientsRoutes } from './clients'
 import { freelancerRoutes } from './freelancers'
 import { projectsAdminRoutes } from './projects'
 import { skillRoutes } from './skills'
@@ -11,4 +12,5 @@ export async function AdminRoutes(app: FastifyTypedInstance) {
   app.register(projectsAdminRoutes)
   app.register(subcategorieRoutes)
   app.register(skillRoutes)
+  app.register(clientsRoutes)
 }
