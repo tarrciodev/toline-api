@@ -1,5 +1,6 @@
 import z from 'zod'
 import { prisma } from '../../../config/prisma'
+import { accountVeriedEmail } from '../../../emails/functions/account-verified-function'
 import type { FastifyTypedInstance } from '../../../types'
 
 export async function verifyFrelancerAdminRoute(app: FastifyTypedInstance) {
@@ -25,7 +26,14 @@ export async function verifyFrelancerAdminRoute(app: FastifyTypedInstance) {
         },
         select: {
           id: true,
+          name: true,
+          email: true,
         },
+      })
+
+      await accountVeriedEmail({
+        name: freelancerVerified.name,
+        email: freelancerVerified.email,
       })
 
       return reply.status(200).send(freelancerVerified)
