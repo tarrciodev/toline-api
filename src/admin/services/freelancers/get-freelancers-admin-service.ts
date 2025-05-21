@@ -19,15 +19,13 @@ export async function getFreelancersAdminService(filters: Filters) {
       id: true,
       name: true,
       isVerified: true,
+      specialization: true,
+      identification: true,
+      email: true,
       user: {
         select: {
-          clientBio: true,
-          skills: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
+          freelancerBio: true,
+          avatarUrl: true,
         },
       },
     },
@@ -37,10 +35,10 @@ export async function getFreelancersAdminService(filters: Filters) {
     const { user, ...rest } = freelancer
     return {
       ...rest,
-      bio: user?.clientBio,
-      skills: user?.skills,
+      bio: user?.freelancerBio,
+      avatarUrl: user?.avatarUrl,
     }
   })
 
-  return freelancers
+  return parsedFreelancers
 }
