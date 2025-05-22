@@ -97,8 +97,8 @@ export async function getProjectByIdService(projectId: string) {
     description: project.description,
     status: project.status,
     createdAt: project.createdAt.toLocaleDateString(),
-    dueDate: project.dueDate?.toLocaleDateString() as string,
-    updatedAt: project.updatedAt.toLocaleDateString(),
+    dueDate: project.dueDate?.toLocaleDateString(),
+    updatedAt: project?.dueDate?.toLocaleDateString(),
     category: project.category?.name as string,
     freelancerId: project.freelancerId as string,
     subcategory: project.category?.subcategories?.find(

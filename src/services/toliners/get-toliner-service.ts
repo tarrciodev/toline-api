@@ -147,6 +147,7 @@ export async function getTolinerService(tolinerEmail: string) {
           description: true,
           createdAt: true,
           subcategoryId: true,
+          dueDate: true,
           owner: {
             select: {
               id: true,
@@ -268,6 +269,7 @@ export async function getTolinerService(tolinerEmail: string) {
         userId: toliner.user?.id,
       },
       createdAt: project.createdAt.toLocaleDateString(),
+      dueDate: project.dueDate?.toLocaleDateString(),
       concludedAt: project.concludedAt?.toLocaleDateString(),
       category: project.category?.name,
       subcategory: project?.category?.subcategories?.map(
@@ -296,6 +298,7 @@ export async function getTolinerService(tolinerEmail: string) {
         userId: toliner.user?.id,
       },
       createdAt: project.createdAt.toLocaleDateString(),
+      dueDate: project.dueDate?.toLocaleDateString(),
       category: project.category?.name,
       subcategory: project?.category?.subcategories?.map(
         subcategory => subcategory.id === project.subcategoryId

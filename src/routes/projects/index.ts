@@ -9,6 +9,7 @@ import { getProjectsOfInterestRoute } from './projects-of-interest-route'
 import { subscribeToProjectRoute } from './subscribe-to-project-route'
 import { unsubscribeFromProjectRoute } from './unsubscribe-from-project-route'
 import { updateBaseProjectRoute } from './update-base-project-route'
+import { updateProjectDueDateRoute } from './update-project-due-date-route'
 import { updateProjectQuotationRoute } from './update-project-quotation-route'
 import { updateProjectPaymentRoute } from './updateProject-payment-route'
 
@@ -25,4 +26,5 @@ export async function projectRoutes(app: FastifyTypedInstance) {
   app.register(getProjectsOfInterestRoute)
   app.register(deleteProjectRoute)
   app.register(updateBaseProjectRoute)
+  app.register(updateProjectDueDateRoute)
 }

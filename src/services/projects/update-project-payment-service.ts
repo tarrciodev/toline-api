@@ -4,12 +4,14 @@ import { ClientError } from '../../errors/client-errors'
 export interface IDependenciesProps {
   projectId: string
   ownerId: string
+  paymentMethod?: string
 }
 
 interface Idata {
   ammount: number
-  clientInvoice: string
-  dueDate: string
+  clientInvoice?: string
+  dueDate?: string
+  referenceNumber?: string
 }
 
 interface IUpadateProjctPaymentService {
@@ -20,7 +22,7 @@ export async function updateProjectPaymentService({
   dependencies,
   data,
 }: IUpadateProjctPaymentService) {
-  const { projectId, ownerId } = dependencies
+  const { projectId, ownerId, paymentMethod } = dependencies
 
   const imTheOwner = await prisma.project.findFirst({
     where: {
@@ -28,12 +30,34 @@ export async function updateProjectPaymentService({
       id: projectId,
     },
     select: {
+      owner: {
+        select: {
+          balance: {
+            select: {
+              ammount: true,
+            },
+          },
+        },
+      },
       freelancerId: true,
       payment: true,
     },
   })
 
   if (!imTheOwner) throw new ClientError('Permissões insuficientes')
+  const insertData =
+    paymentMethod === 'toline'
+      ? {
+          ammount: data.ammount,
+          paymentMethod,
+          status: 'resolved' as 'pending' | 'resolved' | 'rejected',
+        }
+      : {
+          ammount: data.ammount,
+          clientInvoice: data.clientInvoice,
+          paymentMethod,
+          referenceNumber: data.referenceNumber,
+        }
 
   if (imTheOwner.payment) {
     const project = await prisma.project.update({
@@ -42,10 +66,7 @@ export async function updateProjectPaymentService({
       },
       data: {
         payment: {
-          update: {
-            ammount: data.ammount,
-            clientInvoice: data.clientInvoice,
-          },
+          update: insertData,
         },
         dueDate: data.dueDate,
       },
@@ -65,8 +86,7 @@ export async function updateProjectPaymentService({
       data: {
         payment: {
           create: {
-            ammount: data.ammount,
-            clientInvoice: data.clientInvoice,
+            ...insertData,
             tolinerId: ownerId,
             freelancerId: imTheOwner.freelancerId as string,
           },
@@ -78,8 +98,25 @@ export async function updateProjectPaymentService({
       },
     })
 
+    if (paymentMethod === 'toline') {
+      const userbalance = imTheOwner?.owner?.balance?.ammount ?? 0
+      await prisma.toliner.update({
+        where: {
+          id: ownerId,
+        },
+        data: {
+          balance: {
+            update: {
+              ammount: userbalance - data.ammount,
+            },
+          },
+        },
+      })
+    }
+
     return project
   } catch (err) {
-    return err
+    console.log(err)
+    throw new ClientError('Erro ao atualizar o projeto')
   }
 }

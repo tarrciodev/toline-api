@@ -4,7 +4,13 @@ export async function createChargeService({
   tolinerId,
   ammount,
   invoice,
-}: { tolinerId: string; ammount: number; invoice: string }) {
+  referenceNumber,
+}: {
+  tolinerId: string
+  ammount: number
+  invoice: string
+  referenceNumber?: string
+}) {
   const tolinerExists = await prisma.toliner.findUnique({
     where: {
       id: tolinerId,
@@ -27,6 +33,7 @@ export async function createChargeService({
       tolinerId,
       ammount,
       invoice,
+      referenceNumber,
     },
     select: {
       id: true,

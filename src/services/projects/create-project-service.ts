@@ -7,6 +7,7 @@ interface CreateProjectProps {
   categoryId: string
   subcategoryId?: string
   skills?: string[]
+  quotation?: number
 }
 export async function createProjectService(
   data: CreateProjectProps,
@@ -34,6 +35,13 @@ export async function createProjectService(
         skills: {
           connect: skills,
         },
+        quotation: data.quotation
+          ? {
+              create: {
+                ammount: data.quotation,
+              },
+            }
+          : undefined,
       },
       select: {
         id: true,

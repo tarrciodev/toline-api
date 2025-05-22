@@ -11938,7 +11938,7 @@ export namespace Prisma {
     id: string
     projectId: string
     ammount: number
-    description: string
+    description: string | null
     createdAt: Date
     _count: QuotationCountAggregateOutputType | null
     _avg: QuotationAvgAggregateOutputType | null
@@ -12016,7 +12016,7 @@ export namespace Prisma {
       id: string
       projectId: string
       ammount: number
-      description: string
+      description: string | null
       createdAt: Date
     }, ExtArgs["result"]["quotation"]>
     composites: {}
@@ -16211,6 +16211,8 @@ export namespace Prisma {
     tolinerId: string | null
     status: $Enums.PaymentStatus | null
     freelancerId: string | null
+    paymentMethod: string | null
+    referenceNumber: string | null
   }
 
   export type PaymentMaxAggregateOutputType = {
@@ -16225,6 +16227,8 @@ export namespace Prisma {
     tolinerId: string | null
     status: $Enums.PaymentStatus | null
     freelancerId: string | null
+    paymentMethod: string | null
+    referenceNumber: string | null
   }
 
   export type PaymentCountAggregateOutputType = {
@@ -16239,6 +16243,8 @@ export namespace Prisma {
     tolinerId: number
     status: number
     freelancerId: number
+    paymentMethod: number
+    referenceNumber: number
     _all: number
   }
 
@@ -16263,6 +16269,8 @@ export namespace Prisma {
     tolinerId?: true
     status?: true
     freelancerId?: true
+    paymentMethod?: true
+    referenceNumber?: true
   }
 
   export type PaymentMaxAggregateInputType = {
@@ -16277,6 +16285,8 @@ export namespace Prisma {
     tolinerId?: true
     status?: true
     freelancerId?: true
+    paymentMethod?: true
+    referenceNumber?: true
   }
 
   export type PaymentCountAggregateInputType = {
@@ -16291,6 +16301,8 @@ export namespace Prisma {
     tolinerId?: true
     status?: true
     freelancerId?: true
+    paymentMethod?: true
+    referenceNumber?: true
     _all?: true
   }
 
@@ -16392,6 +16404,8 @@ export namespace Prisma {
     tolinerId: string
     status: $Enums.PaymentStatus
     freelancerId: string
+    paymentMethod: string | null
+    referenceNumber: string | null
     _count: PaymentCountAggregateOutputType | null
     _avg: PaymentAvgAggregateOutputType | null
     _sum: PaymentSumAggregateOutputType | null
@@ -16425,6 +16439,8 @@ export namespace Prisma {
     tolinerId?: boolean
     status?: boolean
     freelancerId?: boolean
+    paymentMethod?: boolean
+    referenceNumber?: boolean
     project?: boolean | ProjectDefaultArgs<ExtArgs>
     toliner?: boolean | TolinerDefaultArgs<ExtArgs>
     freelancer?: boolean | TolinerDefaultArgs<ExtArgs>
@@ -16442,6 +16458,8 @@ export namespace Prisma {
     tolinerId?: boolean
     status?: boolean
     freelancerId?: boolean
+    paymentMethod?: boolean
+    referenceNumber?: boolean
     project?: boolean | ProjectDefaultArgs<ExtArgs>
     toliner?: boolean | TolinerDefaultArgs<ExtArgs>
     freelancer?: boolean | TolinerDefaultArgs<ExtArgs>
@@ -16459,6 +16477,8 @@ export namespace Prisma {
     tolinerId?: boolean
     status?: boolean
     freelancerId?: boolean
+    paymentMethod?: boolean
+    referenceNumber?: boolean
     project?: boolean | ProjectDefaultArgs<ExtArgs>
     toliner?: boolean | TolinerDefaultArgs<ExtArgs>
     freelancer?: boolean | TolinerDefaultArgs<ExtArgs>
@@ -16476,9 +16496,11 @@ export namespace Prisma {
     tolinerId?: boolean
     status?: boolean
     freelancerId?: boolean
+    paymentMethod?: boolean
+    referenceNumber?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ammount" | "createdAt" | "clientInvoice" | "systemInvoice" | "isVerified" | "projectId" | "completedAt" | "tolinerId" | "status" | "freelancerId", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ammount" | "createdAt" | "clientInvoice" | "systemInvoice" | "isVerified" | "projectId" | "completedAt" | "tolinerId" | "status" | "freelancerId" | "paymentMethod" | "referenceNumber", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     project?: boolean | ProjectDefaultArgs<ExtArgs>
     toliner?: boolean | TolinerDefaultArgs<ExtArgs>
@@ -16514,6 +16536,8 @@ export namespace Prisma {
       tolinerId: string
       status: $Enums.PaymentStatus
       freelancerId: string
+      paymentMethod: string | null
+      referenceNumber: string | null
     }, ExtArgs["result"]["payment"]>
     composites: {}
   }
@@ -16951,6 +16975,8 @@ export namespace Prisma {
     readonly tolinerId: FieldRef<"Payment", 'String'>
     readonly status: FieldRef<"Payment", 'PaymentStatus'>
     readonly freelancerId: FieldRef<"Payment", 'String'>
+    readonly paymentMethod: FieldRef<"Payment", 'String'>
+    readonly referenceNumber: FieldRef<"Payment", 'String'>
   }
     
 
@@ -17392,6 +17418,7 @@ export namespace Prisma {
     isVerified: boolean | null
     invoice: string | null
     updatedAt: Date | null
+    referenceNumber: string | null
     status: $Enums.ChargeStatus | null
     tolinerId: string | null
   }
@@ -17403,6 +17430,7 @@ export namespace Prisma {
     isVerified: boolean | null
     invoice: string | null
     updatedAt: Date | null
+    referenceNumber: string | null
     status: $Enums.ChargeStatus | null
     tolinerId: string | null
   }
@@ -17414,6 +17442,7 @@ export namespace Prisma {
     isVerified: number
     invoice: number
     updatedAt: number
+    referenceNumber: number
     status: number
     tolinerId: number
     _all: number
@@ -17435,6 +17464,7 @@ export namespace Prisma {
     isVerified?: true
     invoice?: true
     updatedAt?: true
+    referenceNumber?: true
     status?: true
     tolinerId?: true
   }
@@ -17446,6 +17476,7 @@ export namespace Prisma {
     isVerified?: true
     invoice?: true
     updatedAt?: true
+    referenceNumber?: true
     status?: true
     tolinerId?: true
   }
@@ -17457,6 +17488,7 @@ export namespace Prisma {
     isVerified?: true
     invoice?: true
     updatedAt?: true
+    referenceNumber?: true
     status?: true
     tolinerId?: true
     _all?: true
@@ -17555,6 +17587,7 @@ export namespace Prisma {
     isVerified: boolean
     invoice: string
     updatedAt: Date
+    referenceNumber: string | null
     status: $Enums.ChargeStatus
     tolinerId: string
     _count: ChargeCountAggregateOutputType | null
@@ -17585,6 +17618,7 @@ export namespace Prisma {
     isVerified?: boolean
     invoice?: boolean
     updatedAt?: boolean
+    referenceNumber?: boolean
     status?: boolean
     tolinerId?: boolean
     toliner?: boolean | TolinerDefaultArgs<ExtArgs>
@@ -17597,6 +17631,7 @@ export namespace Prisma {
     isVerified?: boolean
     invoice?: boolean
     updatedAt?: boolean
+    referenceNumber?: boolean
     status?: boolean
     tolinerId?: boolean
     toliner?: boolean | TolinerDefaultArgs<ExtArgs>
@@ -17609,6 +17644,7 @@ export namespace Prisma {
     isVerified?: boolean
     invoice?: boolean
     updatedAt?: boolean
+    referenceNumber?: boolean
     status?: boolean
     tolinerId?: boolean
     toliner?: boolean | TolinerDefaultArgs<ExtArgs>
@@ -17621,11 +17657,12 @@ export namespace Prisma {
     isVerified?: boolean
     invoice?: boolean
     updatedAt?: boolean
+    referenceNumber?: boolean
     status?: boolean
     tolinerId?: boolean
   }
 
-  export type ChargeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ammount" | "createdAt" | "isVerified" | "invoice" | "updatedAt" | "status" | "tolinerId", ExtArgs["result"]["charge"]>
+  export type ChargeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ammount" | "createdAt" | "isVerified" | "invoice" | "updatedAt" | "referenceNumber" | "status" | "tolinerId", ExtArgs["result"]["charge"]>
   export type ChargeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     toliner?: boolean | TolinerDefaultArgs<ExtArgs>
   }
@@ -17648,6 +17685,7 @@ export namespace Prisma {
       isVerified: boolean
       invoice: string
       updatedAt: Date
+      referenceNumber: string | null
       status: $Enums.ChargeStatus
       tolinerId: string
     }, ExtArgs["result"]["charge"]>
@@ -18080,6 +18118,7 @@ export namespace Prisma {
     readonly isVerified: FieldRef<"Charge", 'Boolean'>
     readonly invoice: FieldRef<"Charge", 'String'>
     readonly updatedAt: FieldRef<"Charge", 'DateTime'>
+    readonly referenceNumber: FieldRef<"Charge", 'String'>
     readonly status: FieldRef<"Charge", 'ChargeStatus'>
     readonly tolinerId: FieldRef<"Charge", 'String'>
   }
@@ -27753,7 +27792,9 @@ export namespace Prisma {
     completedAt: 'completedAt',
     tolinerId: 'tolinerId',
     status: 'status',
-    freelancerId: 'freelancerId'
+    freelancerId: 'freelancerId',
+    paymentMethod: 'paymentMethod',
+    referenceNumber: 'referenceNumber'
   };
 
   export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
@@ -27766,6 +27807,7 @@ export namespace Prisma {
     isVerified: 'isVerified',
     invoice: 'invoice',
     updatedAt: 'updatedAt',
+    referenceNumber: 'referenceNumber',
     status: 'status',
     tolinerId: 'tolinerId'
   };
@@ -28666,7 +28708,7 @@ export namespace Prisma {
     id?: StringFilter<"Quotation"> | string
     projectId?: StringFilter<"Quotation"> | string
     ammount?: IntFilter<"Quotation"> | number
-    description?: StringFilter<"Quotation"> | string
+    description?: StringNullableFilter<"Quotation"> | string | null
     createdAt?: DateTimeFilter<"Quotation"> | Date | string
     project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
   }
@@ -28675,7 +28717,7 @@ export namespace Prisma {
     id?: SortOrder
     projectId?: SortOrder
     ammount?: SortOrder
-    description?: SortOrder
+    description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     project?: ProjectOrderByWithRelationInput
   }
@@ -28687,7 +28729,7 @@ export namespace Prisma {
     OR?: QuotationWhereInput[]
     NOT?: QuotationWhereInput | QuotationWhereInput[]
     ammount?: IntFilter<"Quotation"> | number
-    description?: StringFilter<"Quotation"> | string
+    description?: StringNullableFilter<"Quotation"> | string | null
     createdAt?: DateTimeFilter<"Quotation"> | Date | string
     project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
   }, "id" | "projectId">
@@ -28696,7 +28738,7 @@ export namespace Prisma {
     id?: SortOrder
     projectId?: SortOrder
     ammount?: SortOrder
-    description?: SortOrder
+    description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: QuotationCountOrderByAggregateInput
     _avg?: QuotationAvgOrderByAggregateInput
@@ -28712,7 +28754,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Quotation"> | string
     projectId?: StringWithAggregatesFilter<"Quotation"> | string
     ammount?: IntWithAggregatesFilter<"Quotation"> | number
-    description?: StringWithAggregatesFilter<"Quotation"> | string
+    description?: StringNullableWithAggregatesFilter<"Quotation"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Quotation"> | Date | string
   }
 
@@ -28916,6 +28958,8 @@ export namespace Prisma {
     tolinerId?: StringFilter<"Payment"> | string
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
     freelancerId?: StringFilter<"Payment"> | string
+    paymentMethod?: StringNullableFilter<"Payment"> | string | null
+    referenceNumber?: StringNullableFilter<"Payment"> | string | null
     project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
     toliner?: XOR<TolinerScalarRelationFilter, TolinerWhereInput>
     freelancer?: XOR<TolinerScalarRelationFilter, TolinerWhereInput>
@@ -28933,6 +28977,8 @@ export namespace Prisma {
     tolinerId?: SortOrder
     status?: SortOrder
     freelancerId?: SortOrder
+    paymentMethod?: SortOrderInput | SortOrder
+    referenceNumber?: SortOrderInput | SortOrder
     project?: ProjectOrderByWithRelationInput
     toliner?: TolinerOrderByWithRelationInput
     freelancer?: TolinerOrderByWithRelationInput
@@ -28953,6 +28999,8 @@ export namespace Prisma {
     tolinerId?: StringFilter<"Payment"> | string
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
     freelancerId?: StringFilter<"Payment"> | string
+    paymentMethod?: StringNullableFilter<"Payment"> | string | null
+    referenceNumber?: StringNullableFilter<"Payment"> | string | null
     project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
     toliner?: XOR<TolinerScalarRelationFilter, TolinerWhereInput>
     freelancer?: XOR<TolinerScalarRelationFilter, TolinerWhereInput>
@@ -28970,6 +29018,8 @@ export namespace Prisma {
     tolinerId?: SortOrder
     status?: SortOrder
     freelancerId?: SortOrder
+    paymentMethod?: SortOrderInput | SortOrder
+    referenceNumber?: SortOrderInput | SortOrder
     _count?: PaymentCountOrderByAggregateInput
     _avg?: PaymentAvgOrderByAggregateInput
     _max?: PaymentMaxOrderByAggregateInput
@@ -28992,6 +29042,8 @@ export namespace Prisma {
     tolinerId?: StringWithAggregatesFilter<"Payment"> | string
     status?: EnumPaymentStatusWithAggregatesFilter<"Payment"> | $Enums.PaymentStatus
     freelancerId?: StringWithAggregatesFilter<"Payment"> | string
+    paymentMethod?: StringNullableWithAggregatesFilter<"Payment"> | string | null
+    referenceNumber?: StringNullableWithAggregatesFilter<"Payment"> | string | null
   }
 
   export type ChargeWhereInput = {
@@ -29004,6 +29056,7 @@ export namespace Prisma {
     isVerified?: BoolFilter<"Charge"> | boolean
     invoice?: StringFilter<"Charge"> | string
     updatedAt?: DateTimeFilter<"Charge"> | Date | string
+    referenceNumber?: StringNullableFilter<"Charge"> | string | null
     status?: EnumChargeStatusFilter<"Charge"> | $Enums.ChargeStatus
     tolinerId?: StringFilter<"Charge"> | string
     toliner?: XOR<TolinerScalarRelationFilter, TolinerWhereInput>
@@ -29016,6 +29069,7 @@ export namespace Prisma {
     isVerified?: SortOrder
     invoice?: SortOrder
     updatedAt?: SortOrder
+    referenceNumber?: SortOrderInput | SortOrder
     status?: SortOrder
     tolinerId?: SortOrder
     toliner?: TolinerOrderByWithRelationInput
@@ -29031,6 +29085,7 @@ export namespace Prisma {
     isVerified?: BoolFilter<"Charge"> | boolean
     invoice?: StringFilter<"Charge"> | string
     updatedAt?: DateTimeFilter<"Charge"> | Date | string
+    referenceNumber?: StringNullableFilter<"Charge"> | string | null
     status?: EnumChargeStatusFilter<"Charge"> | $Enums.ChargeStatus
     tolinerId?: StringFilter<"Charge"> | string
     toliner?: XOR<TolinerScalarRelationFilter, TolinerWhereInput>
@@ -29043,6 +29098,7 @@ export namespace Prisma {
     isVerified?: SortOrder
     invoice?: SortOrder
     updatedAt?: SortOrder
+    referenceNumber?: SortOrderInput | SortOrder
     status?: SortOrder
     tolinerId?: SortOrder
     _count?: ChargeCountOrderByAggregateInput
@@ -29062,6 +29118,7 @@ export namespace Prisma {
     isVerified?: BoolWithAggregatesFilter<"Charge"> | boolean
     invoice?: StringWithAggregatesFilter<"Charge"> | string
     updatedAt?: DateTimeWithAggregatesFilter<"Charge"> | Date | string
+    referenceNumber?: StringNullableWithAggregatesFilter<"Charge"> | string | null
     status?: EnumChargeStatusWithAggregatesFilter<"Charge"> | $Enums.ChargeStatus
     tolinerId?: StringWithAggregatesFilter<"Charge"> | string
   }
@@ -30300,7 +30357,7 @@ export namespace Prisma {
   export type QuotationCreateInput = {
     id?: string
     ammount: number
-    description: string
+    description?: string | null
     createdAt?: Date | string
     project: ProjectCreateNestedOneWithoutQuotationInput
   }
@@ -30309,14 +30366,14 @@ export namespace Prisma {
     id?: string
     projectId: string
     ammount: number
-    description: string
+    description?: string | null
     createdAt?: Date | string
   }
 
   export type QuotationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     ammount?: IntFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     project?: ProjectUpdateOneRequiredWithoutQuotationNestedInput
   }
@@ -30325,7 +30382,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     projectId?: StringFieldUpdateOperationsInput | string
     ammount?: IntFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -30333,14 +30390,14 @@ export namespace Prisma {
     id?: string
     projectId: string
     ammount: number
-    description: string
+    description?: string | null
     createdAt?: Date | string
   }
 
   export type QuotationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     ammount?: IntFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -30348,7 +30405,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     projectId?: StringFieldUpdateOperationsInput | string
     ammount?: IntFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -30552,6 +30609,8 @@ export namespace Prisma {
     isVerified?: boolean
     completedAt?: Date | string | null
     status?: $Enums.PaymentStatus
+    paymentMethod?: string | null
+    referenceNumber?: string | null
     project: ProjectCreateNestedOneWithoutPaymentInput
     toliner: TolinerCreateNestedOneWithoutPaymentsInput
     freelancer: TolinerCreateNestedOneWithoutFreelancerPaymentsInput
@@ -30569,6 +30628,8 @@ export namespace Prisma {
     tolinerId: string
     status?: $Enums.PaymentStatus
     freelancerId: string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
   }
 
   export type PaymentUpdateInput = {
@@ -30580,6 +30641,8 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     project?: ProjectUpdateOneRequiredWithoutPaymentNestedInput
     toliner?: TolinerUpdateOneRequiredWithoutPaymentsNestedInput
     freelancer?: TolinerUpdateOneRequiredWithoutFreelancerPaymentsNestedInput
@@ -30597,6 +30660,8 @@ export namespace Prisma {
     tolinerId?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     freelancerId?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentCreateManyInput = {
@@ -30611,6 +30676,8 @@ export namespace Prisma {
     tolinerId: string
     status?: $Enums.PaymentStatus
     freelancerId: string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
   }
 
   export type PaymentUpdateManyMutationInput = {
@@ -30622,6 +30689,8 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentUncheckedUpdateManyInput = {
@@ -30636,6 +30705,8 @@ export namespace Prisma {
     tolinerId?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     freelancerId?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ChargeCreateInput = {
@@ -30645,6 +30716,7 @@ export namespace Prisma {
     isVerified?: boolean
     invoice: string
     updatedAt?: Date | string
+    referenceNumber?: string | null
     status?: $Enums.ChargeStatus
     toliner: TolinerCreateNestedOneWithoutChargesInput
   }
@@ -30656,6 +30728,7 @@ export namespace Prisma {
     isVerified?: boolean
     invoice: string
     updatedAt?: Date | string
+    referenceNumber?: string | null
     status?: $Enums.ChargeStatus
     tolinerId: string
   }
@@ -30667,6 +30740,7 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     invoice?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumChargeStatusFieldUpdateOperationsInput | $Enums.ChargeStatus
     toliner?: TolinerUpdateOneRequiredWithoutChargesNestedInput
   }
@@ -30678,6 +30752,7 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     invoice?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumChargeStatusFieldUpdateOperationsInput | $Enums.ChargeStatus
     tolinerId?: StringFieldUpdateOperationsInput | string
   }
@@ -30689,6 +30764,7 @@ export namespace Prisma {
     isVerified?: boolean
     invoice: string
     updatedAt?: Date | string
+    referenceNumber?: string | null
     status?: $Enums.ChargeStatus
     tolinerId: string
   }
@@ -30700,6 +30776,7 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     invoice?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumChargeStatusFieldUpdateOperationsInput | $Enums.ChargeStatus
   }
 
@@ -30710,6 +30787,7 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     invoice?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumChargeStatusFieldUpdateOperationsInput | $Enums.ChargeStatus
     tolinerId?: StringFieldUpdateOperationsInput | string
   }
@@ -32203,6 +32281,8 @@ export namespace Prisma {
     tolinerId?: SortOrder
     status?: SortOrder
     freelancerId?: SortOrder
+    paymentMethod?: SortOrder
+    referenceNumber?: SortOrder
   }
 
   export type PaymentAvgOrderByAggregateInput = {
@@ -32221,6 +32301,8 @@ export namespace Prisma {
     tolinerId?: SortOrder
     status?: SortOrder
     freelancerId?: SortOrder
+    paymentMethod?: SortOrder
+    referenceNumber?: SortOrder
   }
 
   export type PaymentMinOrderByAggregateInput = {
@@ -32235,6 +32317,8 @@ export namespace Prisma {
     tolinerId?: SortOrder
     status?: SortOrder
     freelancerId?: SortOrder
+    paymentMethod?: SortOrder
+    referenceNumber?: SortOrder
   }
 
   export type PaymentSumOrderByAggregateInput = {
@@ -32281,6 +32365,7 @@ export namespace Prisma {
     isVerified?: SortOrder
     invoice?: SortOrder
     updatedAt?: SortOrder
+    referenceNumber?: SortOrder
     status?: SortOrder
     tolinerId?: SortOrder
   }
@@ -32296,6 +32381,7 @@ export namespace Prisma {
     isVerified?: SortOrder
     invoice?: SortOrder
     updatedAt?: SortOrder
+    referenceNumber?: SortOrder
     status?: SortOrder
     tolinerId?: SortOrder
   }
@@ -32307,6 +32393,7 @@ export namespace Prisma {
     isVerified?: SortOrder
     invoice?: SortOrder
     updatedAt?: SortOrder
+    referenceNumber?: SortOrder
     status?: SortOrder
     tolinerId?: SortOrder
   }
@@ -35189,6 +35276,7 @@ export namespace Prisma {
     isVerified?: boolean
     invoice: string
     updatedAt?: Date | string
+    referenceNumber?: string | null
     status?: $Enums.ChargeStatus
   }
 
@@ -35199,6 +35287,7 @@ export namespace Prisma {
     isVerified?: boolean
     invoice: string
     updatedAt?: Date | string
+    referenceNumber?: string | null
     status?: $Enums.ChargeStatus
   }
 
@@ -35238,6 +35327,8 @@ export namespace Prisma {
     isVerified?: boolean
     completedAt?: Date | string | null
     status?: $Enums.PaymentStatus
+    paymentMethod?: string | null
+    referenceNumber?: string | null
     project: ProjectCreateNestedOneWithoutPaymentInput
     freelancer: TolinerCreateNestedOneWithoutFreelancerPaymentsInput
   }
@@ -35253,6 +35344,8 @@ export namespace Prisma {
     completedAt?: Date | string | null
     status?: $Enums.PaymentStatus
     freelancerId: string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
   }
 
   export type PaymentCreateOrConnectWithoutTolinerInput = {
@@ -35274,6 +35367,8 @@ export namespace Prisma {
     isVerified?: boolean
     completedAt?: Date | string | null
     status?: $Enums.PaymentStatus
+    paymentMethod?: string | null
+    referenceNumber?: string | null
     project: ProjectCreateNestedOneWithoutPaymentInput
     toliner: TolinerCreateNestedOneWithoutPaymentsInput
   }
@@ -35289,6 +35384,8 @@ export namespace Prisma {
     completedAt?: Date | string | null
     tolinerId: string
     status?: $Enums.PaymentStatus
+    paymentMethod?: string | null
+    referenceNumber?: string | null
   }
 
   export type PaymentCreateOrConnectWithoutFreelancerInput = {
@@ -35537,6 +35634,7 @@ export namespace Prisma {
     isVerified?: BoolFilter<"Charge"> | boolean
     invoice?: StringFilter<"Charge"> | string
     updatedAt?: DateTimeFilter<"Charge"> | Date | string
+    referenceNumber?: StringNullableFilter<"Charge"> | string | null
     status?: EnumChargeStatusFilter<"Charge"> | $Enums.ChargeStatus
     tolinerId?: StringFilter<"Charge"> | string
   }
@@ -35595,6 +35693,8 @@ export namespace Prisma {
     tolinerId?: StringFilter<"Payment"> | string
     status?: EnumPaymentStatusFilter<"Payment"> | $Enums.PaymentStatus
     freelancerId?: StringFilter<"Payment"> | string
+    paymentMethod?: StringNullableFilter<"Payment"> | string | null
+    referenceNumber?: StringNullableFilter<"Payment"> | string | null
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutFreelancerInput = {
@@ -36124,14 +36224,14 @@ export namespace Prisma {
   export type QuotationCreateWithoutProjectInput = {
     id?: string
     ammount: number
-    description: string
+    description?: string | null
     createdAt?: Date | string
   }
 
   export type QuotationUncheckedCreateWithoutProjectInput = {
     id?: string
     ammount: number
-    description: string
+    description?: string | null
     createdAt?: Date | string
   }
 
@@ -36171,6 +36271,8 @@ export namespace Prisma {
     isVerified?: boolean
     completedAt?: Date | string | null
     status?: $Enums.PaymentStatus
+    paymentMethod?: string | null
+    referenceNumber?: string | null
     toliner: TolinerCreateNestedOneWithoutPaymentsInput
     freelancer: TolinerCreateNestedOneWithoutFreelancerPaymentsInput
   }
@@ -36186,6 +36288,8 @@ export namespace Prisma {
     tolinerId: string
     status?: $Enums.PaymentStatus
     freelancerId: string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
   }
 
   export type PaymentCreateOrConnectWithoutProjectInput = {
@@ -36400,14 +36504,14 @@ export namespace Prisma {
   export type QuotationUpdateWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
     ammount?: IntFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type QuotationUncheckedUpdateWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
     ammount?: IntFieldUpdateOperationsInput | number
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -36447,6 +36551,8 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     toliner?: TolinerUpdateOneRequiredWithoutPaymentsNestedInput
     freelancer?: TolinerUpdateOneRequiredWithoutFreelancerPaymentsNestedInput
   }
@@ -36462,6 +36568,8 @@ export namespace Prisma {
     tolinerId?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     freelancerId?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TolinerCreateWithoutSubscriptionsInput = {
@@ -39440,6 +39548,7 @@ export namespace Prisma {
     isVerified?: boolean
     invoice: string
     updatedAt?: Date | string
+    referenceNumber?: string | null
     status?: $Enums.ChargeStatus
   }
 
@@ -39454,6 +39563,8 @@ export namespace Prisma {
     completedAt?: Date | string | null
     status?: $Enums.PaymentStatus
     freelancerId: string
+    paymentMethod?: string | null
+    referenceNumber?: string | null
   }
 
   export type PaymentCreateManyFreelancerInput = {
@@ -39467,6 +39578,8 @@ export namespace Prisma {
     completedAt?: Date | string | null
     tolinerId: string
     status?: $Enums.PaymentStatus
+    paymentMethod?: string | null
+    referenceNumber?: string | null
   }
 
   export type ProjectUpdateWithoutOwnerInput = {
@@ -39708,6 +39821,7 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     invoice?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumChargeStatusFieldUpdateOperationsInput | $Enums.ChargeStatus
   }
 
@@ -39718,6 +39832,7 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     invoice?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumChargeStatusFieldUpdateOperationsInput | $Enums.ChargeStatus
   }
 
@@ -39728,6 +39843,7 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     invoice?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumChargeStatusFieldUpdateOperationsInput | $Enums.ChargeStatus
   }
 
@@ -39740,6 +39856,8 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     project?: ProjectUpdateOneRequiredWithoutPaymentNestedInput
     freelancer?: TolinerUpdateOneRequiredWithoutFreelancerPaymentsNestedInput
   }
@@ -39755,6 +39873,8 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     freelancerId?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentUncheckedUpdateManyWithoutTolinerInput = {
@@ -39768,6 +39888,8 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     freelancerId?: StringFieldUpdateOperationsInput | string
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentUpdateWithoutFreelancerInput = {
@@ -39779,6 +39901,8 @@ export namespace Prisma {
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
     project?: ProjectUpdateOneRequiredWithoutPaymentNestedInput
     toliner?: TolinerUpdateOneRequiredWithoutPaymentsNestedInput
   }
@@ -39794,6 +39918,8 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tolinerId?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PaymentUncheckedUpdateManyWithoutFreelancerInput = {
@@ -39807,6 +39933,8 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tolinerId?: StringFieldUpdateOperationsInput | string
     status?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+    paymentMethod?: NullableStringFieldUpdateOperationsInput | string | null
+    referenceNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TestAttemptCreateManyUserInput = {

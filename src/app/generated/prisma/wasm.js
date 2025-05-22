@@ -250,7 +250,9 @@ exports.Prisma.PaymentScalarFieldEnum = {
   completedAt: 'completedAt',
   tolinerId: 'tolinerId',
   status: 'status',
-  freelancerId: 'freelancerId'
+  freelancerId: 'freelancerId',
+  paymentMethod: 'paymentMethod',
+  referenceNumber: 'referenceNumber'
 };
 
 exports.Prisma.ChargeScalarFieldEnum = {
@@ -260,6 +262,7 @@ exports.Prisma.ChargeScalarFieldEnum = {
   isVerified: 'isVerified',
   invoice: 'invoice',
   updatedAt: 'updatedAt',
+  referenceNumber: 'referenceNumber',
   status: 'status',
   tolinerId: 'tolinerId'
 };

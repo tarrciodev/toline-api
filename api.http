@@ -19,3 +19,7 @@ GET http://localhost:3333/adm/payments?status=pending
 ###
 
 GET http://localhost:3333/adm/clients
+
+###
+
+GET http://localhost:3333/project/fcf094d2-c978-4130-ae23-1491d1e96330

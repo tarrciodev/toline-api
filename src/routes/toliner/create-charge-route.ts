@@ -15,17 +15,19 @@ export async function createRechargeRoute(app: FastifyTypedInstance) {
         body: z.object({
           invoice: z.string(),
           ammount: z.number().min(1),
+          referenceNumber: z.string().optional(),
         }),
       },
     },
     async (request, reply) => {
       const { tolinerId } = request.params
-      const { invoice, ammount } = request.body
+      const { invoice, ammount, referenceNumber } = request.body
 
       const charge = await createChargeService({
         tolinerId,
         ammount,
         invoice,
+        referenceNumber,
       })
 
       return charge

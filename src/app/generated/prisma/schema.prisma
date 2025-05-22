@@ -1,7 +1,6 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../src/app/generated/prisma"
-  format   = ["esm"]
 }
 
 datasource db {
@@ -154,7 +153,7 @@ model Quotation {
   projectId   String   @unique
   project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   ammount     Int
-  description String
+  description String?
   createdAt   DateTime @default(now()) @map("created_at")
 
   @@map("quotations")
@@ -206,20 +205,22 @@ enum PaymentStatus {
 }
 
 model Payment {
-  id            String        @id @default(uuid())
-  ammount       Float
-  createdAt     DateTime      @default(now()) @map("created_at")
-  clientInvoice String?       @map("client_invoice")
-  systemInvoice String?       @map("system_invoice")
-  isVerified    Boolean       @default(false)
-  project       Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  projectId     String        @unique
-  completedAt   DateTime?     @map("competed_at")
-  toliner       Toliner       @relation(name: "ClientPayments", fields: [tolinerId], references: [id], onDelete: Cascade)
-  tolinerId     String
-  status        PaymentStatus @default(pending)
-  freelancer    Toliner       @relation(name: "FreelancerPayments", fields: [freelancerId], references: [id], onDelete: Cascade)
-  freelancerId  String
+  id              String        @id @default(uuid())
+  ammount         Float
+  createdAt       DateTime      @default(now()) @map("created_at")
+  clientInvoice   String?       @map("client_invoice")
+  systemInvoice   String?       @map("system_invoice")
+  isVerified      Boolean       @default(false)
+  project         Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId       String        @unique
+  completedAt     DateTime?     @map("competed_at")
+  toliner         Toliner       @relation(name: "ClientPayments", fields: [tolinerId], references: [id], onDelete: Cascade)
+  tolinerId       String
+  status          PaymentStatus @default(pending)
+  freelancer      Toliner       @relation(name: "FreelancerPayments", fields: [freelancerId], references: [id], onDelete: Cascade)
+  freelancerId    String
+  paymentMethod   String?
+  referenceNumber String?
 
   @@index([tolinerId, freelancerId])
   @@map("payments")
@@ -232,15 +233,16 @@ enum ChargeStatus {
 }
 
 model Charge {
-  id         String       @id @default(uuid())
-  ammount    Float
-  createdAt  DateTime     @default(now()) @map("created_at")
-  isVerified Boolean      @default(false)
-  invoice    String
-  updatedAt  DateTime     @updatedAt
-  toliner    Toliner      @relation(fields: [tolinerId], references: [id])
-  status     ChargeStatus @default(pending)
-  tolinerId  String
+  id              String       @id @default(uuid())
+  ammount         Float
+  createdAt       DateTime     @default(now()) @map("created_at")
+  isVerified      Boolean      @default(false)
+  invoice         String
+  updatedAt       DateTime     @updatedAt
+  referenceNumber String?
+  toliner         Toliner      @relation(fields: [tolinerId], references: [id])
+  status          ChargeStatus @default(pending)
+  tolinerId       String
 
   @@index([tolinerId])
   @@map("charges")

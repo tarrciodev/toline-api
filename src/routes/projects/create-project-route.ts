@@ -16,6 +16,7 @@ export async function createProjectRoute(app: FastifyTypedInstance) {
           categoryId: z.string().uuid(),
           skills: z.array(z.string().uuid()).optional(),
           subcategoryId: z.string().uuid().optional(),
+          quotation: z.number().optional(),
         }),
         params: z.object({
           ownerId: z.string().uuid(),
@@ -25,14 +26,21 @@ export async function createProjectRoute(app: FastifyTypedInstance) {
     async (request, replay) => {
       const { ownerId } = request.params
       if (!ownerId) return replay.status(200).send()
-      const { name, description, categoryId, skills, subcategoryId } =
-        request.body
+      const {
+        name,
+        description,
+        categoryId,
+        skills,
+        subcategoryId,
+        quotation,
+      } = request.body
       const data = {
         name,
         description,
         categoryId,
         skills,
         subcategoryId,
+        quotation,
       }
 
       const createdProject = await createProjectService(data, ownerId)

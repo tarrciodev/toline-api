@@ -15,6 +15,7 @@ export async function getChargesService(tolinerId: string) {
       ammount: true,
       createdAt: true,
       status: true,
+      referenceNumber: true,
     },
   })
 
